@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Forest Mystery</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/image-map-resizer/1.0.10/js/imageMapResizer.min.js"></script>
+
+    <style>
+        
+        * { box-sizing: border-box; }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000; 
+            overflow: hidden;
+        }
+
+        .forest-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        
+        #forest-img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            display: block;
+            z-index: 1; 
+        }
+
+        
+        #info-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 10, 5, 0.95); 
+            color: #00ffcc;
+            padding: 40px;
+            border: 2px solid #00ffcc;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
+            display: none; 
+            text-align: center;
+            max-width: 80%;
+            z-index: 9999; 
+            
+            animation: flicker 4s infinite;
+            font-family: 'Special Elite', serif;
+        }
+
+        #info-text {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.8);
+        }
+
+        #close-btn {
+            display: inline-block;
+            margin-top: 25px;
+            color: #ff4444;
+            cursor: pointer;
+            font-family: 'Creepster', cursive;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+        }
+
+      
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            20%, 24%, 55% {
+                opacity: 0.6;
+                transform: translate(-51%, -49%) scale(0.99); 
+            }
+        }
+
+        area { cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="forest-wrapper">
+        <img src="images/forest.jpg" usemap="#image-map" id="forest-img">
+
+        <map name="image-map">
+            <area alt="Deer" coords="2853,2794,3762,3974" shape="rect" onclick="showInfo('The deer watches you from the shadows. It does not seem to breathe.')">
+            <area alt="Ghost" coords="4040,1367,6903,4998" shape="rect" onclick="showInfo('A pale, flickering figure. The air grows cold around it.')">
+            <area alt="Tree" coords="92,163,2534,4632" shape="rect" onclick="showInfo('This ancient oak feels unnaturally cold to the touch.')">
+        </map>
+
+        <div id="info-box">
+            <div id="info-text"></div>
+            <div id="close-btn" onclick="closeBox()">[ DISMISS SPIRIT ]</div>
+        </div>
+    </div>
+
+    <script>
+        function showInfo(message) {
+            document.getElementById('info-text').innerText = message;
+            document.getElementById('info-box').style.display = 'block';
+        }
+
+        function closeBox() {
+            document.getElementById('info-box').style.display = 'none';
+        }
+
+        // Essential to make clicks work on full-screen images
+        window.onload = function() {
+            if (typeof imageMapResize === 'function') {
+                imageMapResize();
+            }
+        };
+    </script>
+
+</body>
+</html>
